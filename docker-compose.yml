@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  app:
+    build: app
+  components:
+    build: components
+  room-info:
+    build: room-info
+  frontendproxy:
+    build: frontend-proxy
+    ports:
+      - "8000:80"
