@@ -1,6 +1,3 @@
-import { resolve } from "path";
-import { defineConfig } from "vite";
-
 import federation from "@originjs/vite-plugin-federation";
 
 export default {
@@ -12,9 +9,21 @@ export default {
       name: "iot-components",
       filename: "iot-components.js",
       exposes: {
-        ".": "./main.js",
+        "./hello": "./main.js",
       },
-      shared: ["lit", "lit-html", "lit-element"],
+      shared: {
+        "@vaadin/vaadin-lumo-styles": {},
+        "@vaadin/button": { generate: false },
+        "@vaadin/charts": {},
+        "@vaadin/notification": {},
+        "@vaadin/text-field": {},
+        "j-elements": {},
+
+        "@polymer/polymer": {},
+        "lit-html": { version: "2.6.1" },
+        lit: { version: "2.6.1" },
+        "lit-element": { version: "2.6.1" },
+      },
     }),
   ],
 };

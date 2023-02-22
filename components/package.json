@@ -2,7 +2,9 @@
   "license": "UNLICENSED",
   "name": "iot-components",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "module": "./dist/my-lib.js",
   "exports": {
     ".": {
@@ -18,7 +20,6 @@
     "@vaadin/avatar": "24.0.0-beta2",
     "@vaadin/avatar-group": "24.0.0-beta2",
     "@vaadin/board": "24.0.0-beta2",
-    "@vaadin/bundles": "24.0.0-beta2",
     "@vaadin/button": "24.0.0-beta2",
     "@vaadin/charts": "24.0.0-beta2",
     "@vaadin/checkbox": "24.0.0-beta2",

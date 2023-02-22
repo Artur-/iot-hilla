@@ -5,3 +5,5 @@ import '@vaadin/charts';
 import '@vaadin/notification';
 import '@vaadin/text-field';
 import 'j-elements';
+
+console.log("Components bundle loaded");
