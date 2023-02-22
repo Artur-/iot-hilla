@@ -1,11 +1,15 @@
-import '@vaadin/button';
 import '@vaadin/charts';
+import '@vaadin/button';
 import '@vaadin/notification';
+import { Notification } from '@vaadin/notification';
 import '@vaadin/text-field';
 import 'j-elements';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { View } from '../view';
+
+//@ts-ignore
+import('roominfo/room-info');
 
 @customElement('iot-dashboard')
 export class DashboardView extends View {
@@ -33,12 +37,14 @@ export class DashboardView extends View {
         <div slot="title">Recent months</div>
         <vaadin-chart
           .categories=${this.recentMonthsCategories}
-          no-legend=false
+          no-legend="false"
           .additionalOptions=${{ yAxis: { title: { text: 'Consumption (kWh)' } } }}
         >
           <vaadin-chart-series type="column" .values=${this.recentMonthsValues}></vaadin-chart-series>
         </vaadin-chart>
       </j-card>
+      <vaadin-button @click=${() => Notification.show('hello')}>hello</vaadin-button>
+      <room-info sensor-id="foo"></room-info>
     `;
   }
 }
