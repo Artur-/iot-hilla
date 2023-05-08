@@ -1,12 +1,16 @@
 version: "3.9"
 services:
   app:
+    image: iot/app
     build: app
   components:
+    image: iot/components
     build: components
   room-info:
+    image: iot/room-info
     build: room-info
   frontendproxy:
+    image: iot/frontend-proxy
     build: frontend-proxy
     ports:
       - "8000:80"

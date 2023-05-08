@@ -1,6 +1,5 @@
 This is a microfrontend application using Hilla
 
-
-It can currently be run as:
+To start the application:
 1. `docker compose up`
 2. Open http://localhost:8000/
