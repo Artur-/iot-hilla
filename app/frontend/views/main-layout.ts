@@ -9,12 +9,15 @@ import '@vaadin/scroller';
 import '@vaadin/tabs';
 import '@vaadin/tabs/vaadin-tab';
 import '@vaadin/vaadin-lumo-styles/vaadin-iconset';
+import { DeploymentInfoEndpoint } from 'Frontend/generated/endpoints';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { router } from '../index';
 import { views } from '../routes';
 import { appStore } from '../stores/app-store';
 import { Layout } from './view';
+import Type from 'Frontend/generated/com/example/application/MessagingConfiguration/Type';
+import { Notification } from '@vaadin/notification';
 
 interface RouteInfo {
   path: string;
@@ -62,6 +65,10 @@ export class MainLayout extends Layout {
         AppLayout.dispatchCloseOverlayDrawerEvent();
       }
     );
+
+    DeploymentInfoEndpoint.getDeploymentUpdates().onNext((e) => {
+      Notification.show(`App ${e.app} was ${e.type === Type.DEPLOY ? 'deployed' : 'undeployed'}`);
+    });
   }
 
   private getMenuRoutes(): RouteInfo[] {

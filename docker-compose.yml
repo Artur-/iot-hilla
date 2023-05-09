@@ -1,15 +1,28 @@
 version: "3.9"
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
   app:
     image: iot/app
     build: app
+    stop_signal: SIGINT
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
   components:
     image: iot/components
     build: components
   room-info:
     image: iot/room-info
     build: room-info
-  frontendproxy:
+    stop_signal: SIGINT
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+  frontend-proxy:
     image: iot/frontend-proxy
     build: frontend-proxy
     ports:
