@@ -2,6 +2,7 @@ package org.vaadin.artur.hillamicro.shared;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -39,14 +40,30 @@ public class DeployUndeployHandler {
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationReady(
             ApplicationReadyEvent applicationReadyEvent) {
-        try {
+        sendDeployInfo();
+    }
 
+    private void sendDeployInfo() {
+        try {
             template.convertAndSend(MessagingConfiguration.EXCHANGE,
                     MessagingConfiguration.ROUTING_KEY,
                     new DeploymentInfo(Type.DEPLOY, applicationInfo));
             logger.info("Deploy event sent");
         } catch (Exception e) {
             logger.info("Error sending deploy event", e);
+        }
+    }
+
+    @RabbitListener(queues = MessagingConfiguration.QUEUE)
+    public void appDeployed(DeploymentInfo info) {
+        if (info.type() == Type.DEPLOY) {
+            if (info.applicationInfo().tag().equals("app")) {
+                // The app shell was deployed, send the status of this module
+                if (!applicationInfo.tag()
+                        .equals(info.applicationInfo().tag())) {
+                    sendDeployInfo();
+                }
+            }
         }
     }
 
