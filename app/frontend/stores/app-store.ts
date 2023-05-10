@@ -1,6 +1,13 @@
 import { RouterLocation } from '@vaadin/router';
 import { makeAutoObservable } from 'mobx';
 
+interface FederationRoute {
+  title?: string;
+  path: string;
+  icon: string;
+  tag: string;
+  importPath: string;
+}
 export class AppStore {
   applicationName = 'In Da House';
 
@@ -9,6 +16,7 @@ export class AppStore {
 
   currentViewTitle = '';
 
+  federationRoutes: FederationRoute[] = [];
   constructor() {
     makeAutoObservable(this);
   }

@@ -8,8 +8,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.vaadin.artur.hillamicro.roominfo.MessagingConfiguration.DeploymentInfo;
-import org.vaadin.artur.hillamicro.roominfo.MessagingConfiguration.Type;
+import org.vaadin.artur.hillamicro.shared.MessagingConfiguration;
+import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.DeploymentInfo;
+import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.Type;
 
 @Service
 public class DeployUndeployHandler {
@@ -25,7 +26,7 @@ public class DeployUndeployHandler {
         try {
             template.convertAndSend(MessagingConfiguration.EXCHANGE,
                     MessagingConfiguration.ROUTING_KEY,
-                    new DeploymentInfo(Type.UNDEPLOY, Application.ID));
+                    new DeploymentInfo(Type.UNDEPLOY, Application.INFO));
             logger.info("Undeploy event sent");
         } catch (Exception e) {
             logger.info("Error sending undeploy event", e);
@@ -39,7 +40,7 @@ public class DeployUndeployHandler {
 
             template.convertAndSend(MessagingConfiguration.EXCHANGE,
                     MessagingConfiguration.ROUTING_KEY,
-                    new DeploymentInfo(Type.DEPLOY, Application.ID));
+                    new DeploymentInfo(Type.DEPLOY, Application.INFO));
             logger.info("Deploy event sent");
         } catch (Exception e) {
             logger.info("Error sending deploy event", e);

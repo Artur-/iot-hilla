@@ -8,9 +8,6 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { View } from '../view';
 
-//@ts-ignore
-import('roominfo/room-info');
-
 @customElement('iot-dashboard')
 export class DashboardView extends View {
   private recentMonthsCategories: string[] = ['Jun', 'Jul', 'Aug'];

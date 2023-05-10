@@ -9,15 +9,10 @@ import '@vaadin/scroller';
 import '@vaadin/tabs';
 import '@vaadin/tabs/vaadin-tab';
 import '@vaadin/vaadin-lumo-styles/vaadin-iconset';
-import { DeploymentInfoEndpoint } from 'Frontend/generated/endpoints';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { router } from '../index';
-import { views } from '../routes';
 import { appStore } from '../stores/app-store';
 import { Layout } from './view';
-import Type from 'Frontend/generated/org/vaadin/artur/hillamicro/app/MessagingConfiguration/Type';
-import { Notification } from '@vaadin/notification';
 
 interface RouteInfo {
   path: string;
@@ -39,7 +34,7 @@ export class MainLayout extends Layout {
           <vcf-nav aria-label="${appStore.applicationName}">
             ${this.getMenuRoutes().map(
               (viewRoute) => html`
-                <vcf-nav-item path=${router.urlForPath(viewRoute.path)}>
+                <vcf-nav-item path=${viewRoute.path}>
                   <span class="${viewRoute.icon} nav-item-icon" slot="prefix" aria-hidden="true"></span>
                   ${viewRoute.title}
                 </vcf-nav-item>
@@ -65,13 +60,9 @@ export class MainLayout extends Layout {
         AppLayout.dispatchCloseOverlayDrawerEvent();
       }
     );
-
-    DeploymentInfoEndpoint.getDeploymentUpdates().onNext((e) => {
-      Notification.show(`App ${e.app} was ${e.type === Type.DEPLOY ? 'deployed' : 'undeployed'}`);
-    });
   }
 
   private getMenuRoutes(): RouteInfo[] {
-    return views.filter((route) => route.title) as RouteInfo[];
+    return [{ path: '', title: 'Dashboard', icon: '' }, ...appStore.federationRoutes.filter((route) => !!route.title) as RouteInfo[]];
   }
 }

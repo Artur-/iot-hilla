@@ -1,7 +1,8 @@
-package org.vaadin.artur.hillamicro.app;
+package org.vaadin.artur.hillamicro.shared;
+
+import jakarta.annotation.Nullable;
 
 import org.aopalliance.aop.Advice;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -26,7 +27,11 @@ public class MessagingConfiguration {
         DEPLOY, UNDEPLOY
     };
 
-    public record DeploymentInfo(Type type, String app) {
+    public record ApplicationInfo(String tag, @Nullable String title,
+            String path, String icon, String importPath) {
+    };
+
+    public record DeploymentInfo(Type type, ApplicationInfo applicationInfo) {
     };
 
     @Bean
