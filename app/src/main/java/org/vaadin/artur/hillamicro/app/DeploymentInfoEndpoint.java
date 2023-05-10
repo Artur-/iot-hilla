@@ -1,11 +1,11 @@
-package com.example.application;
+package org.vaadin.artur.hillamicro.app;
 
-import com.example.application.MessagingConfiguration.DeploymentInfo;
-import com.example.application.MessagingConfiguration.Type;
 import dev.hilla.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.vaadin.artur.hillamicro.app.MessagingConfiguration.DeploymentInfo;
+import org.vaadin.artur.hillamicro.app.MessagingConfiguration.Type;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.core.publisher.Sinks.EmitResult;

@@ -1,4 +1,4 @@
-package com.example.application;
+package org.vaadin.artur.hillamicro.roominfo;
 
 import org.aopalliance.aop.Advice;
 import org.springframework.amqp.core.Binding;

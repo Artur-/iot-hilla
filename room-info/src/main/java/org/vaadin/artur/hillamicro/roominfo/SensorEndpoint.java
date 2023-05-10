@@ -1,4 +1,4 @@
-package com.example.application;
+package org.vaadin.artur.hillamicro.roominfo;
 
 import java.util.Arrays;
 

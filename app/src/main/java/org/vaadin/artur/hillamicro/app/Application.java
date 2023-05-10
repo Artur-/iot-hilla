@@ -1,4 +1,4 @@
-package com.example.application;
+package org.vaadin.artur.hillamicro.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +10,9 @@ import com.vaadin.flow.theme.NoTheme;
 @NoTheme
 public class Application implements AppShellConfigurator {
 
-    public static final String ID = "room-info";
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
 }
+ 

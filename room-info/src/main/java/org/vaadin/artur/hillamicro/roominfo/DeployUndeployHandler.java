@@ -1,7 +1,5 @@
-package com.example.application;
+package org.vaadin.artur.hillamicro.roominfo;
 
-import com.example.application.MessagingConfiguration.DeploymentInfo;
-import com.example.application.MessagingConfiguration.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -10,6 +8,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.vaadin.artur.hillamicro.roominfo.MessagingConfiguration.DeploymentInfo;
+import org.vaadin.artur.hillamicro.roominfo.MessagingConfiguration.Type;
 
 @Service
 public class DeployUndeployHandler {

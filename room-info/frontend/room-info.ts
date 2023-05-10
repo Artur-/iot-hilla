@@ -1,9 +1,9 @@
+import '@vaadin/charts';
+import 'j-elements';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import SensorInfo from './generated/com/example/application/SensorInfo';
+import SensorInfo from './generated/org/vaadin/artur/hillamicro/roominfo/SensorInfo';
 import { SensorEndpoint } from './generated/endpoints';
-import '@vaadin/charts'
-import 'j-elements'
 
 @customElement('room-info')
 export class RoomInfo extends LitElement {

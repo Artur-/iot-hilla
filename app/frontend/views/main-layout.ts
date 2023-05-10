@@ -16,7 +16,7 @@ import { router } from '../index';
 import { views } from '../routes';
 import { appStore } from '../stores/app-store';
 import { Layout } from './view';
-import Type from 'Frontend/generated/com/example/application/MessagingConfiguration/Type';
+import Type from 'Frontend/generated/org/vaadin/artur/hillamicro/app/MessagingConfiguration/Type';
 import { Notification } from '@vaadin/notification';
 
 interface RouteInfo {
