@@ -10,7 +10,7 @@ import com.vaadin.flow.theme.NoTheme;
 @NoTheme
 public class Application implements AppShellConfigurator {
 
-    public static final String ID = "room-info";
+    public static final String ID = "server-time";
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
