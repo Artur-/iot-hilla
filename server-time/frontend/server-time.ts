@@ -23,22 +23,19 @@ export class ServerTime extends LitElement {
       <j-card>
         <div>Server time when opening view: ${this.serverTime}</div>
         <div>
-            ${
-              this.sub
-                ? html`
+          ${this.sub
+            ? html`
                     <vaadin-button @click=${this.unsubscribe}
                       >Unsubscribe</vaadin-button
                     ></vaadin-button>
                     <span>Server time is: ${this.subscribedServerTime}</span>
                   `
-                : html`
+            : html`
                     <vaadin-button @click=${this.subscribe}
                       >Subscribe to time updates</vaadin-button
                     ></vaadin-button>
-                  `
-            }
+                  `}
         </div>
-        <div>Current server time (updated)
       </j-card>
     `;
   }
