@@ -1,15 +1,14 @@
-import '@vaadin/charts';
 import '@vaadin/button';
+import '@vaadin/charts';
 import '@vaadin/notification';
 import { Notification } from '@vaadin/notification';
 import '@vaadin/text-field';
 import 'j-elements';
-import { html } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { View } from '../view';
 
-@customElement('iot-dashboard')
-export class DashboardView extends View {
+@customElement('dashboard-view')
+export class DashboardView extends LitElement {
   private recentMonthsCategories: string[] = ['Jun', 'Jul', 'Aug'];
   private recentMonthsValues: number[] = [560, 850, 722];
 

@@ -63,6 +63,6 @@ export class MainLayout extends Layout {
   }
 
   private getMenuRoutes(): RouteInfo[] {
-    return [{ path: '', title: 'Dashboard', icon: '' }, ...appStore.federationRoutes.filter((route) => !!route.title) as RouteInfo[]];
+    return [...(appStore.federationRoutes.filter((route) => !!route.title) as RouteInfo[])];
   }
 }

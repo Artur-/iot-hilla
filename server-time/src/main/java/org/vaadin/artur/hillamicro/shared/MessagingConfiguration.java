@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.interceptor.RetryOperationsInterceptor;
 
+import com.vaadin.flow.shared.util.SharedUtil;
+
 @Configuration
 public class MessagingConfiguration {
     public static final String QUEUE = "rabbit_queue";
@@ -29,7 +31,20 @@ public class MessagingConfiguration {
 
     public record ApplicationInfo(String tag, @Nullable String title,
             String path, String icon, String importPath) {
-    };
+
+        public static ApplicationInfo byConvention(String tag) {
+            String title = SharedUtil.camelCaseToHumanFriendly(
+                    SharedUtil.dashSeparatedToCamelCase(tag));
+            return byConvention(tag, title);
+        }
+
+        public static ApplicationInfo byConvention(String tag, String title) {
+            String path = "/" + tag;
+            return new ApplicationInfo(tag, title, path, "",
+                    path + "/VAADIN/build/" + tag + ".js");
+
+        }
+    }
 
     public record DeploymentInfo(Type type, ApplicationInfo applicationInfo) {
     };

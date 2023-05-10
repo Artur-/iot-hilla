@@ -28,6 +28,12 @@ services:
     stop_signal: SIGINT
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+  dashboard-view:
+    image: iot/dashboard-view
+    build: dashboard-view
+    stop_signal: SIGINT
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
   frontend-proxy:
     image: iot/frontend-proxy
     build: frontend-proxy

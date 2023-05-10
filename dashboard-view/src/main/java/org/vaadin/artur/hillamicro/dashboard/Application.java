@@ -1,4 +1,4 @@
-package org.vaadin.artur.hillamicro.servertime;
+package org.vaadin.artur.hillamicro.dashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class Application implements AppShellConfigurator {
 
     @Bean
     ApplicationInfo applicationInfo() {
-        return ApplicationInfo.byConvention("server-time");
+        return ApplicationInfo.byConvention("dashboard-view");
     }
 
     public static void main(String[] args) {

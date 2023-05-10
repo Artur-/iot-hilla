@@ -1,4 +1,4 @@
-package org.vaadin.artur.hillamicro.roominfo;
+package org.vaadin.artur.hillamicro.shared;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.vaadin.artur.hillamicro.shared.MessagingConfiguration;
+import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.ApplicationInfo;
 import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.DeploymentInfo;
 import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.Type;
 
@@ -19,6 +19,9 @@ public class DeployUndeployHandler {
             .getLogger(DeployUndeployHandler.class);
 
     @Autowired
+    private ApplicationInfo applicationInfo;
+
+    @Autowired
     private RabbitTemplate template;
 
     @EventListener(ContextClosedEvent.class)
@@ -26,7 +29,7 @@ public class DeployUndeployHandler {
         try {
             template.convertAndSend(MessagingConfiguration.EXCHANGE,
                     MessagingConfiguration.ROUTING_KEY,
-                    new DeploymentInfo(Type.UNDEPLOY, Application.INFO));
+                    new DeploymentInfo(Type.UNDEPLOY, applicationInfo));
             logger.info("Undeploy event sent");
         } catch (Exception e) {
             logger.info("Error sending undeploy event", e);
@@ -40,7 +43,7 @@ public class DeployUndeployHandler {
 
             template.convertAndSend(MessagingConfiguration.EXCHANGE,
                     MessagingConfiguration.ROUTING_KEY,
-                    new DeploymentInfo(Type.DEPLOY, Application.INFO));
+                    new DeploymentInfo(Type.DEPLOY, applicationInfo));
             logger.info("Deploy event sent");
         } catch (Exception e) {
             logger.info("Error sending deploy event", e);

@@ -1,5 +1,4 @@
 import type { Route } from '@vaadin/router';
-import './views/dashboard/dashboard';
 import './views/main-layout';
 import { appStore } from './stores/app-store';
 
@@ -10,17 +9,6 @@ export type ViewRoute = Route & {
 };
 
 export const views: ViewRoute[] = [
-  // place routes below (more info https://hilla.dev/docs/routing)
-  {
-    path: '',
-    component: 'iot-dashboard',
-    icon: 'la la-file',
-    title: 'Dashboard',
-    action: async (_context, _command) => {
-      await import('./views/dashboard/dashboard.js');
-      return;
-    },
-  },
   {
     path: '(.*)',
     action: async (_context, _command) => {
