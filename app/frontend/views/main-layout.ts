@@ -14,6 +14,9 @@ import { customElement } from 'lit/decorators.js';
 import { appStore } from '../stores/app-store';
 import { Layout } from './view';
 
+//@ts-ignore
+import('components/all.js');
+
 interface RouteInfo {
   path: string;
   title: string;

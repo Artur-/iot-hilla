@@ -9,7 +9,7 @@ export default {
       name: "iot-components",
       filename: "iot-components.js",
       exposes: {
-        "./hello": "./main.js",
+        "./all.js": "./main.js",
       },
       shared: {
         "@vaadin/vaadin-lumo-styles": {},
