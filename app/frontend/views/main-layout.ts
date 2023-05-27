@@ -1,14 +1,3 @@
-import '@vaadin-component-factory/vcf-nav';
-import '@vaadin/app-layout';
-import { AppLayout } from '@vaadin/app-layout';
-import '@vaadin/app-layout/vaadin-drawer-toggle';
-import '@vaadin/avatar';
-import '@vaadin/icon';
-import '@vaadin/menu-bar';
-import '@vaadin/scroller';
-import '@vaadin/tabs';
-import '@vaadin/tabs/vaadin-tab';
-import '@vaadin/vaadin-lumo-styles/vaadin-iconset';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { appStore } from '../stores/app-store';
@@ -57,12 +46,12 @@ export class MainLayout extends Layout {
   connectedCallback() {
     super.connectedCallback();
     this.classList.add('block', 'h-full');
-    this.reaction(
-      () => appStore.location,
-      () => {
-        AppLayout.dispatchCloseOverlayDrawerEvent();
-      }
-    );
+    // this.reaction(
+    //   () => appStore.location,
+    //   () => {
+    //     AppLayout.dispatchCloseOverlayDrawerEvent();
+    //   }
+    // );
   }
 
   private getMenuRoutes(): RouteInfo[] {

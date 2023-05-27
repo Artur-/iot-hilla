@@ -5,7 +5,9 @@ import jakarta.annotation.Nullable;
 import org.aopalliance.aop.Advice;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.config.RetryInterceptorBuilder;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -21,9 +23,7 @@ import com.vaadin.flow.shared.util.SharedUtil;
 
 @Configuration
 public class MessagingConfiguration {
-    public static final String QUEUE = "rabbit_queue";
-    public static final String EXCHANGE = "rabbit_exchange";
-    public static final String ROUTING_KEY = "rabbit_routingKey";
+    public static final String EXCHANGE = "deploy-undeploy-info";
 
     public enum Type {
         DEPLOY, UNDEPLOY
@@ -51,17 +51,17 @@ public class MessagingConfiguration {
 
     @Bean
     Queue queue() {
-        return new Queue(QUEUE);
+        return QueueBuilder.nonDurable().autoDelete().build();
     }
 
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE);
+    FanoutExchange exchange() {
+        return new FanoutExchange(EXCHANGE);
     }
 
     @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    Binding binding(Queue queue, FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
     }
 
     @Bean
@@ -96,6 +96,7 @@ public class MessagingConfiguration {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(
                 connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter);
+        rabbitTemplate.setExchange(EXCHANGE);
         return rabbitTemplate;
     }
 

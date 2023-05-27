@@ -1,9 +1,3 @@
-import '@vaadin/button';
-import '@vaadin/charts';
-import '@vaadin/notification';
-import { Notification } from '@vaadin/notification';
-import '@vaadin/text-field';
-import 'j-elements';
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -39,7 +33,7 @@ export class DashboardView extends LitElement {
           <vaadin-chart-series type="column" .values=${this.recentMonthsValues}></vaadin-chart-series>
         </vaadin-chart>
       </j-card>
-      <vaadin-button @click=${() => Notification.show('hello')}>hello</vaadin-button>
+      <vaadin-button @click=${() => console.log('hello')}>hello</vaadin-button>
       <room-info sensor-id="foo"></room-info>
     `;
   }

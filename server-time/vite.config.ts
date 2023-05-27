@@ -17,12 +17,8 @@ const customConfig: UserConfigFn = (env) => ({
       shared: {
         '@vaadin/vaadin-lumo-styles': {},
         '@vaadin/button': { generate: false },
-        '@vaadin/charts': {},
-        '@vaadin/notification': {},
-        '@vaadin/text-field': {},
         'j-elements': {},
-
-        '@polymer/polymer': {},
+        '@polymer/polymer': {import: false, generate:false},
         'lit-html': { version: '2.6.1' },
         lit: { version: '2.6.1' },
         'lit-element': { version: '2.6.1' },

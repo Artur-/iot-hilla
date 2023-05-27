@@ -1,28 +1,29 @@
-import federation from "@originjs/vite-plugin-federation";
+import federation from '@originjs/vite-plugin-federation';
 
 export default {
+  base: '',
   build: {
-    target: "esnext",
+    target: 'esnext',
   },
   plugins: [
     federation({
-      name: "iot-components",
-      filename: "iot-components.js",
+      name: 'iot-components',
+      filename: 'iot-components.js',
       exposes: {
-        "./all.js": "./main.js",
+        './all.js': './main.js',
       },
       shared: {
-        "@vaadin/vaadin-lumo-styles": {},
-        "@vaadin/button": { generate: false },
-        "@vaadin/charts": {},
-        "@vaadin/notification": {},
-        "@vaadin/text-field": {},
-        "j-elements": {},
+        '@vaadin/vaadin-lumo-styles': {},
+        '@vaadin/button': {},
+        '@vaadin/charts': {},
+        '@vaadin/notification': {},
+        '@vaadin/text-field': {},
+        'j-elements': {},
 
-        "@polymer/polymer": {},
-        "lit-html": { version: "2.6.1" },
-        lit: { version: "2.6.1" },
-        "lit-element": { version: "2.6.1" },
+        '@polymer/polymer': {},
+        'lit-html': { version: '2.6.1' },
+        lit: { version: '2.6.1' },
+        'lit-element': { version: '2.6.1' },
       },
     }),
   ],

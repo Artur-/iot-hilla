@@ -1,5 +1,3 @@
-import '@vaadin/charts';
-import 'j-elements';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import SensorInfo from './generated/org/vaadin/artur/hillamicro/roominfo/SensorInfo';

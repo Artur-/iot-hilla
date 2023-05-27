@@ -1,6 +1,4 @@
 import { Subscription } from '@hilla/frontend';
-import '@vaadin/button';
-import 'j-elements';
 import { html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
 import { ServerTimeEndpoint } from './generated/endpoints';

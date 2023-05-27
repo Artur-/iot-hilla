@@ -1,2 +1,2 @@
 @org.springframework.lang.NonNullApi
-package org.vaadin.artur.hillamicro.servertime;
+package org.vaadin.artur.hillamicro.dashboard;

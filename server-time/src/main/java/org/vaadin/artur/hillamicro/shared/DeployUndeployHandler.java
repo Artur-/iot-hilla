@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,13 @@ public class DeployUndeployHandler {
 
     @Autowired
     private RabbitTemplate template;
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @EventListener(ContextClosedEvent.class)
     public void onContextClosedEvent(ContextClosedEvent contextClosedEvent) {
         try {
-            template.convertAndSend(MessagingConfiguration.EXCHANGE,
-                    MessagingConfiguration.ROUTING_KEY,
+            template.convertAndSend(
                     new DeploymentInfo(Type.UNDEPLOY, applicationInfo));
             logger.info("Undeploy event sent");
         } catch (Exception e) {
@@ -45,8 +47,7 @@ public class DeployUndeployHandler {
 
     private void sendDeployInfo() {
         try {
-            template.convertAndSend(MessagingConfiguration.EXCHANGE,
-                    MessagingConfiguration.ROUTING_KEY,
+            template.convertAndSend(
                     new DeploymentInfo(Type.DEPLOY, applicationInfo));
             logger.info("Deploy event sent");
         } catch (Exception e) {
@@ -54,7 +55,7 @@ public class DeployUndeployHandler {
         }
     }
 
-    @RabbitListener(queues = MessagingConfiguration.QUEUE)
+    @RabbitListener
     public void appDeployed(DeploymentInfo info) {
         if (info.type() == Type.DEPLOY) {
             if (info.applicationInfo().tag().equals("app")) {
@@ -65,6 +66,8 @@ public class DeployUndeployHandler {
                 }
             }
         }
+        applicationEventPublisher
+                .publishEvent(new DeployUndeployEvent(this, info));
     }
 
 }

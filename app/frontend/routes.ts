@@ -20,7 +20,7 @@ export const views: ViewRoute[] = [
         module.get('.' + pathname);
         return _command.component(federationRoute.tag);
       } else {
-        debugger;
+        // debugger;
       }
       return undefined;
     },

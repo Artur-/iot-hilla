@@ -6,8 +6,8 @@ import java.util.Set;
 import dev.hilla.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.vaadin.artur.hillamicro.shared.MessagingConfiguration;
+import org.springframework.context.event.EventListener;
+import org.vaadin.artur.hillamicro.shared.DeployUndeployEvent;
 import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.ApplicationInfo;
 import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.DeploymentInfo;
 import org.vaadin.artur.hillamicro.shared.MessagingConfiguration.Type;
@@ -28,10 +28,9 @@ public class DeploymentInfoEndpoint {
     private final Flux<DeploymentInfo> updates = deploymentSink.asFlux();
     private final Set<ApplicationInfo> deployed = new HashSet<>();
 
-    @RabbitListener(queues = MessagingConfiguration.QUEUE)
-    public void appDeployed(DeploymentInfo info) {
-        deploymentSink.emitNext(info, (signalType,
-                emitResult) -> emitResult == EmitResult.FAIL_NON_SERIALIZED);
+    @EventListener
+    public void appDeployed(DeployUndeployEvent event) {
+        DeploymentInfo info = event.getDeploymentInfo();
 
         if (info.type() == Type.DEPLOY) {
             deployed.add(info.applicationInfo());
@@ -40,6 +39,10 @@ public class DeploymentInfoEndpoint {
             deployed.remove(info.applicationInfo());
             logger.info("App undeployed: " + info.applicationInfo().title());
         }
+
+        deploymentSink.emitNext(info, (signalType,
+                emitResult) -> emitResult == EmitResult.FAIL_NON_SERIALIZED);
+
     }
 
     @AnonymousAllowed
