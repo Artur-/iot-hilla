@@ -2,6 +2,8 @@ package org.vaadin.artur.hillamicro.shared;
 
 import jakarta.annotation.Nullable;
 
+import java.util.UUID;
+
 import org.aopalliance.aop.Advice;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -23,6 +25,8 @@ import com.vaadin.flow.shared.util.SharedUtil;
 
 @Configuration
 public class MessagingConfiguration {
+    public static final String QUEUE = "q-" + UUID.randomUUID().toString();
+
     public static final String EXCHANGE = "deploy-undeploy-info";
 
     public enum Type {
@@ -51,7 +55,7 @@ public class MessagingConfiguration {
 
     @Bean
     Queue queue() {
-        return QueueBuilder.nonDurable().autoDelete().build();
+        return QueueBuilder.durable(QUEUE).autoDelete().build();
     }
 
     @Bean

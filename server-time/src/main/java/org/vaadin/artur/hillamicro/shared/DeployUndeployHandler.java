@@ -55,7 +55,7 @@ public class DeployUndeployHandler {
         }
     }
 
-    @RabbitListener
+    @RabbitListener(queues = "#{queue.name}")
     public void appDeployed(DeploymentInfo info) {
         if (info.type() == Type.DEPLOY) {
             if (info.applicationInfo().tag().equals("app")) {
