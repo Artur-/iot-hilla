@@ -16,5 +16,6 @@ promises.push(import('@vaadin/tabs'));
 promises.push(import('@vaadin/tabs/vaadin-tab'));
 promises.push(import('@vaadin/vaadin-lumo-styles/vaadin-iconset'));
 promises.push(import('@vaadin/vaadin-lumo-styles/utility.js'));
+promises.push(import('room-info/room-info.js'));
 
 Promise.all(promises).then(() => console.log('Components bundle loaded'));

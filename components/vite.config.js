@@ -8,6 +8,9 @@ export default {
   plugins: [
     federation({
       name: 'iot-components',
+      remotes: {
+        'room-info': '/room-info/VAADIN/build/roominfo.js',
+      },
       filename: 'iot-components.js',
       exposes: {
         './all.js': './main.js',

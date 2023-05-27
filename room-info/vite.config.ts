@@ -12,7 +12,7 @@ const customConfig: UserConfigFn = (env) => ({
       name: 'iot-roominfo',
       filename: 'roominfo.js',
       exposes: {
-        './room-info': './frontend/room-info.ts',
+        './room-info.js': './frontend/room-info.ts',
       },
       shared: {
         '@vaadin/vaadin-lumo-styles': {},
