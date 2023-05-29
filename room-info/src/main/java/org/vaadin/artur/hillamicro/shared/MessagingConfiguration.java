@@ -43,9 +43,9 @@ public class MessagingConfiguration {
         }
 
         public static ApplicationInfo byConvention(String tag, String title) {
-            String path = "/" + tag;
-            return new ApplicationInfo(tag, title, path, "",
-                    path + "/VAADIN/build/" + tag + ".js");
+            String externalPath = "/" + tag;
+            String jsPath = "/_apps/" + tag + "/VAADIN/build/" + tag + ".js";
+            return new ApplicationInfo(tag, title, externalPath, "", jsPath);
 
         }
     }

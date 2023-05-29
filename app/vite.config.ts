@@ -11,8 +11,8 @@ const customConfig: UserConfigFn = (env) => ({
     federation({
       name: 'iot-app',
       remotes: {
-        components: '/components/iot-components.js',
-        roominfo: '/room-info/VAADIN/build/roominfo.js',
+        components: '/_apps/components/iot-components.js',
+        roominfo: '/_apps/room-info/VAADIN/build/room-info.js',
       },
       shared: {
         // '@vaadin/vaadin-lumo-styles': {},

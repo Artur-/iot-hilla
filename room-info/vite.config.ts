@@ -10,7 +10,7 @@ const customConfig: UserConfigFn = (env) => ({
   plugins: [
     federation({
       name: 'iot-roominfo',
-      filename: 'roominfo.js',
+      filename: 'room-info.js',
       exposes: {
         './room-info.js': './frontend/room-info.ts',
       },

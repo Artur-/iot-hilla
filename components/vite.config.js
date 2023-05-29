@@ -9,7 +9,7 @@ export default {
     federation({
       name: 'iot-components',
       remotes: {
-        'room-info': '/room-info/VAADIN/build/roominfo.js',
+        'room-info': '/_apps/room-info/VAADIN/build/room-info.js',
       },
       filename: 'iot-components.js',
       exposes: {
