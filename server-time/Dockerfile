@@ -10,11 +10,6 @@ WORKDIR $HOME
 RUN chown -R myuser:myuser $HOME
 #USER myuser
 
-# Charts needs a license
-ENV LICENSE_FILE=/root/.vaadin/offlineKey
-COPY offlineKey.ci $LICENSE_FILE
-
-
 ADD . $HOME
 
 # This is needed so that Hilla can launch its plugin correctly
