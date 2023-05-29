@@ -13,6 +13,8 @@ services:
     stop_signal: SIGINT
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
   components:
     image: iot/components
     build: components
@@ -22,20 +24,32 @@ services:
     stop_signal: SIGINT
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
   server-time:
     image: iot/server-time
     build: server-time
     stop_signal: SIGINT
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
   dashboard-view:
     image: iot/dashboard-view
     build: dashboard-view
     stop_signal: SIGINT
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
   frontend-proxy:
     image: iot/frontend-proxy
     build: frontend-proxy
     ports:
       - "8000:80"
+    depends_on:
+      - rabbitmq
+      - app
+      - room-info
+      - server-time
+      - dashboard-view
