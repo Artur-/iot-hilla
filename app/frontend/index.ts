@@ -6,7 +6,8 @@ import('./deployment-tracker');
 
 export const router = new Router(document.querySelector('#outlet'));
 
-router.setRoutes(routes);
+// Delay rendering for all sub views until the views has been loaded
+router.setRoutes(routes, document.location.pathname !== '/');
 
 window.addEventListener('vaadin-router-location-changed', (e) => {
   appStore.setLocation((e as CustomEvent).detail.location);
