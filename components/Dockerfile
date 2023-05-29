@@ -14,4 +14,4 @@ RUN --mount=type=cache,target=/root/.m2,sharing=locked npx vite build
 
 FROM halverneus/static-file-server
 COPY --from=build /home/myuser/proj/dist/assets/* /web/
-
+EXPOSE 8080

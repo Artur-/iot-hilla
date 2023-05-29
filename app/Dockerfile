@@ -20,3 +20,4 @@ RUN --mount=type=cache,target=/root/.m2,sharing=locked mvn package -Pproduction
 FROM eclipse-temurin:17-jre
 COPY --from=build /home/myuser/proj/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8080

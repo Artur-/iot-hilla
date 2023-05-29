@@ -15,9 +15,17 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - rabbitmq
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=PathPrefix(`/`)"
   components:
     image: iot/components
     build: components
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.components.rule=PathPrefix(`/_apps/components/`)"
+      - "traefik.http.routers.components.middlewares=componentsstrip"
+      - "traefik.http.middlewares.componentsstrip.stripprefix.prefixes=/_apps/components/"
   room-info:
     image: iot/room-info
     build: room-info
@@ -26,6 +34,11 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - rabbitmq
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.roominfo.rule=PathPrefix(`/_apps/room-info/`)"
+      - "traefik.http.routers.roominfo.middlewares=roominfostrip"
+      - "traefik.http.middlewares.roominfostrip.stripprefix.prefixes=/_apps/room-info/"
   server-time:
     image: iot/server-time
     build: server-time
@@ -34,6 +47,11 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - rabbitmq
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.servertime.rule=PathPrefix(`/_apps/server-time/`)"
+      - "traefik.http.routers.servertime.middlewares=servertimestrip"
+      - "traefik.http.middlewares.servertimestrip.stripprefix.prefixes=/_apps/server-time/"
   dashboard-view:
     image: iot/dashboard-view
     build: dashboard-view
@@ -42,14 +60,19 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - rabbitmq
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=PathPrefix(`/_apps/dashboard-view/`)"
+      - "traefik.http.routers.dashboard.middlewares=dashboardstrip"
+      - "traefik.http.middlewares.dashboardstrip.stripprefix.prefixes=/_apps/dashboard-view/"
   frontend-proxy:
-    image: iot/frontend-proxy
-    build: frontend-proxy
+    image: traefik:v2.10
+    command:
+      - --api.insecure=true
+      - --providers.docker
+      - --providers.docker.exposedByDefault=false
     ports:
       - "8000:80"
-    depends_on:
-      - rabbitmq
-      - app
-      - room-info
-      - server-time
-      - dashboard-view
+      - "8001:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
